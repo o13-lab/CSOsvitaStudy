@@ -16,11 +16,11 @@ class RoomTest {
 
     @Test
     void shouldCalculateChairs() {
-        assertEquals("1 0 1 0 1 0", room.calc(3, 2, 2, 2));
-        assertEquals("", room.calc(197, 195, 781, 90));
-        assertEquals("", room.calc(471, 790, 109, 43));
-        assertEquals("", room.calc(2, 4, 0, 0));
-        assertEquals("5 0 2 0 8 0", room.calc(15, 7, 10, 13));
-        assertEquals("1 1 0 0 0 0", room.calc(2, 2, 0, 1));
+        assertEquals("YES\n1 0 1 0 1 0", room.calc(3, 2, 2, 2));
+        assertEquals("NO", room.calc(197, 195, 781, 90));
+        assertEquals("NO", room.calc(471, 790, 109, 43));
+        assertEquals("NO", room.calc(2, 4, 0, 0));
+        assertEquals("YES\n5 0 2 0 8 0", room.calc(15, 7, 10, 13));
+        assertEquals("YES\n1 1 0 0 0 0", room.calc(2, 2, 0, 1));
     }
 }

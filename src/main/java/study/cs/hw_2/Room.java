@@ -9,9 +9,9 @@ public class Room {
         try (var reader = new BufferedReader(new InputStreamReader(System.in))) {
             String[] input = reader.readLine().split(" ");
             int n = Integer.parseInt(input[0]);
-            int nab = Integer.parseInt(input[0]);
-            int nbc = Integer.parseInt(input[0]);
-            int nac = Integer.parseInt(input[0]);
+            int nab = Integer.parseInt(input[1]);
+            int nbc = Integer.parseInt(input[2]);
+            int nac = Integer.parseInt(input[3]);
 
             String output = solve(n, nab, nbc, nac);
 
@@ -24,45 +24,39 @@ public class Room {
     }
 
     private static String solve(int n, int nab, int nbc, int nac) {
-        int ka = 0;
-        int kab = 0;
-        int kb = 0;
-        int kbc = 0;
-        int kc = 0;
-        int kac = 0;
+        int c = nab + nbc + nac - n;
 
-        while (n-- > 0) {
-            if (nab >= nbc) {
-                if (nab >= nac) {
-                    nab--;
-                    if (nbc >= nac) {
-                        nbc--;
-                        kb++;
-                    } else {
-                        nac--;
-                        ka++;
-                    }
-                }
-            } else {
-                if (nbc >= nac) {
-                    nbc--;
-                    if (nac >= nab) {
-                        nac--;
-                        kc++;
-                    } else {
-                        nab--;
-                        kb++;
-                    }
+        if (c < 0) {
+            return "NO";
+        }
+
+        var output = new StringBuilder();
+        for (int c1 = 0; c1 <= c; c1++) {
+            for (int c2 = 0; c2 <= c - c1; c2++) {
+                int c3 = c - c1 - c2;
+
+                int sAB = nab - c1 - c2;
+                int sBC = nbc - c2 - c3;
+                int sAC = nac - c3 - c1;
+
+                if (sAB >= 0 && sBC >= 0 && sAC >= 0) {
+                    output.append("YES\n");
+                    output.append(c1).append(" ");
+                    output.append(sAB).append(" ");
+                    output.append(c2).append(" ");
+                    output.append(sBC).append(" ");
+                    output.append(c3).append(" ");
+                    output.append(sAC);
+                    return output.toString();
                 }
             }
         }
 
+        return "NO";
+    }
 
-        return (kab == nab && nbc == kbc && nac == kac && n == 0) ? "%d %d %d %d %d %d".formatted(ka, kac, kb, kbc, kc, kac) : "";
-}
-
-public String calc(int n, int nab, int nbc, int nac) {
-    return solve(n, nab, nbc, nac);
-}
+    public String calc(int n, int nab, int nbc, int nac) {
+        return solve(n, nab, nbc, nac);
+    }
 
 }
